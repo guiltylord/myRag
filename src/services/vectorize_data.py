@@ -34,14 +34,10 @@ def create_vectors_data(chunks):
 
 
     vectors_data = []
-    
-    # 2. Получаем модель ОДИН РАЗ перед циклом
     model = _get_embeddings_model()
-
     print(f"Начинаю векторизацию {len(chunks)} фрагментов...")
 
     for i, chunk in enumerate(chunks):
-        # 3. Передаем модель внутрь, чтобы не загружать её заново
         vector = embed_text(chunk.page_content, model)
 
         vectors_data.append({"text": chunk.page_content, "vector": vector})
