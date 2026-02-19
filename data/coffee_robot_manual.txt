@@ -1,8 +1,8 @@
-Руководство пользователя: Робот-бариста Barista-Bot 3000.
-Код ошибки E-42 означает, что в системе закончилось овсяное молоко или забился капучинатор. 
-Для устранения ошибки E-42 необходимо: 
-1. Проверить резервуар для молока.
-2. Промыть паровую трубку горячей водой под давлением 2 бара.
-3. Нажать кнопку «Reset» и удерживать её 5 секунд.
-Если загорается красный индикатор «Bean-Empty», значит кофейные зерна застряли в жерновах кофемолки. 
-Запрещается использовать карамелизированные зерна, так как это аннулирует гарантию.
+User Manual: Barista-Bot 3000 Coffee Robot.
+Error code E-42 indicates that the system has run out of oat milk or the steam wand is clogged. 
+To resolve error E-42, you must: 
+1. Check the milk reservoir.
+2. Rinse the steam wand with hot water at a pressure of 2 bars.
+3. Press and hold the "Reset" button for 5 seconds.
+If the red "Bean-Empty" indicator lights up, it means coffee beans are stuck in the grinder burrs. 
+The use of caramelized beans is strictly prohibited, as this will void the warranty.
