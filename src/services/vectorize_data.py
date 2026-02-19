@@ -1,26 +1,49 @@
-import numpy as np
+from langchain_huggingface import HuggingFaceEmbeddings
+
+_cached_model = None
+
+def _get_embeddings_model():
+    """
+    Умная функция: загружает модель один раз.
+    При повторных вызовах просто отдает уже готовую.
+    """
+    global _cached_model
+    if _cached_model is None:
+        print("📥 [System] Загружаю модель (это будет только один раз)...")
+        _cached_model = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2"
+        )
+    return _cached_model
+
+def embed_text(text, model=None):
+    """
+    Атомарная функция: превращает одну строку в вектор.
+    Модель можно передать. Если не передал — она возьмется сама.
+    """
+
+
+    if model is None:
+        model = _get_embeddings_model()
+        
+    return model.embed_query(text)
 
 def create_vectors_data(chunks):
     """
-    Принимает текстовые чанки (объекты LangChain Document) и модель.
-    Возвращает список словарей с текстом и сырым вектором.
+    Функция для обработки списка чанков.
     """
-    from langchain_huggingface import HuggingFaceEmbeddings
 
-    embeddings_model = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
-    )
 
     vectors_data = []
+    
+    # 2. Получаем модель ОДИН РАЗ перед циклом
+    model = _get_embeddings_model()
 
     print(f"Начинаю векторизацию {len(chunks)} фрагментов...")
 
     for i, chunk in enumerate(chunks):
-        # Генерируем вектор через LangChain метод .embed_query
-        # Он возвращает обычный список (list) из float чисел
-        vector = embeddings_model.embed_query(chunk.page_content)
+        # 3. Передаем модель внутрь, чтобы не загружать её заново
+        vector = embed_text(chunk.page_content, model)
 
-        # Сохраняем в промежуточный список
         vectors_data.append({"text": chunk.page_content, "vector": vector})
 
         if (i + 1) % 10 == 0:
@@ -28,7 +51,3 @@ def create_vectors_data(chunks):
 
     print("Векторизация успешно завершена.")
     return vectors_data
-
-def embed_user_query(query_text, embeddings_model):
-    """Превращает строку запроса в вектор."""
-    return embeddings_model.embed_query(query_text)
