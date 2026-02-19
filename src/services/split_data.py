@@ -1,7 +1,6 @@
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-
-
 def split_docs(prepared_docs, chunk_size=500, chunk_overlap=100):
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
+
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size, chunk_overlap=chunk_overlap
     )

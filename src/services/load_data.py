@@ -8,7 +8,3 @@ def load_documents(folder_path):
             with open(os.path.join(folder_path, file), "r", encoding="utf-8") as f:
                 docs.append(f.read())
     return docs
-
-
-docs = load_documents("data")
-print(docs)

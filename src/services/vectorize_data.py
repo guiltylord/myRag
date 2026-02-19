@@ -1,15 +1,14 @@
-from langchain_huggingface import HuggingFaceEmbeddings
-
-default_embeddings_model = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
-
-
-def create_vectors_data(chunks, embeddings_model=default_embeddings_model):
+def create_vectors_data(chunks):
     """
     Принимает текстовые чанки (объекты LangChain Document) и модель.
     Возвращает список словарей с текстом и сырым вектором.
     """
+    from langchain_huggingface import HuggingFaceEmbeddings
+
+    embeddings_model = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
+
     vectors_data = []
 
     print(f"Начинаю векторизацию {len(chunks)} фрагментов...")

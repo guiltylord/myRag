@@ -11,4 +11,4 @@ vectors = create_vectors_data(chunks)
 connection, db_cursor = connect_to_db()
 
 save_vectors(connection, db_cursor, vectors)
-print(close_db)
+print(close_db(connection))

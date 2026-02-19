@@ -1,5 +1,5 @@
-from clean_data import clean_text
-from load_data import load_documents
+from services.clean_data import clean_text
+from services.load_data import load_documents
 
 
 def prepare_docs(folder_path="data/"):
