@@ -1,5 +1,5 @@
 import colorama
-from colorama import Fore, Style
+from colorama import Fore
 
 from repositories.db_worker import connect_to_db, fetch_all_embeddings, close_db
 from services.vectorize_data import embed_text
