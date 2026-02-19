@@ -1,3 +1,5 @@
+import numpy as np
+
 def create_vectors_data(chunks):
     """
     Принимает текстовые чанки (объекты LangChain Document) и модель.
@@ -26,3 +28,7 @@ def create_vectors_data(chunks):
 
     print("Векторизация успешно завершена.")
     return vectors_data
+
+def embed_user_query(query_text, embeddings_model):
+    """Превращает строку запроса в вектор."""
+    return embeddings_model.embed_query(query_text)

@@ -36,3 +36,8 @@ def close_db(conn, cursor=None):
             return "БД успешно сохранена и закрыта."
     except Exception as e:
         return f"Ошибка при закрытии БД: {e}"
+
+def fetch_all_embeddings(cursor):
+    """Просто достает все тексты и векторы из БД."""
+    cursor.execute("SELECT text_content, embedding FROM vector_store")
+    return cursor.fetchall()
