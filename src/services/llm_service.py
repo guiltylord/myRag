@@ -1,5 +1,4 @@
 import ollama
-
 def build_prompt(query, context_chunks=None):
     """
     Собирает финальную строку промпта.
@@ -7,7 +6,13 @@ def build_prompt(query, context_chunks=None):
 
 
     if not context_chunks:
-        return f"Question: {query}\nAnswer:"
+        return (
+            f"You are a strict assistant. The user will ask a question. "
+            f"If you don't have specific information in your memory about this, "
+            f"simply answer: 'I don't have information about this in my database.' "
+            f"Do not invent facts.\n"
+            f"Question: {query}"
+        )
     
     context_text = "\n---\n".join(context_chunks)
     
