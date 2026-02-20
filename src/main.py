@@ -14,27 +14,28 @@ TOP_K = 2
 PRINT_SCORES = True
 
 def main():
-    print(Fore.CYAN + "🚀 Инициализация RAG системы...")
-
+    print(Fore.CYAN + "\n=== RAG SYSTEM INITIALIZATION ===")
+    
     conn, cursor = connect_to_db()
     
-    print(Fore.YELLOW + "📥 Прогрев модели эмбеддингов (подождите)...")
+    print(Fore.YELLOW + "[..] Warming up embedding model...")
     embed_text("warmup") 
 
     db_rows = fetch_all_embeddings(cursor)
     
     if not db_rows:
-        print(Fore.RED + "⚠ База данных пуста!")
+        print(Fore.RED + "[!!] Database is empty.")
     else:
-        print(Fore.GREEN + f"✅ Система готова! В базе: {len(db_rows)} векторов.")
+        print(Fore.GREEN + f"[OK] System ready. Vectors loaded: {len(db_rows)}")
     
-    print("---------------------------------------------------------")
-    print(f"Параметры: THRESHOLD={THRESHOLD}, TOP_K={TOP_K}")
-    print("Напиши свой вопрос. Для выхода напиши 'exit'.")
+    print(Fore.CYAN + "------------------------------------------")
+    print(f"Config: Threshold={THRESHOLD} | Top_K={TOP_K}")
+    print("Type your question below. Type 'exit' to quit.")
+    print(Fore.CYAN + "------------------------------------------")
 
     while True:
         try:
-            print("\n" + Fore.BLUE + "Твой вопрос: ", end="")
+            print(Fore.BLUE + "\nUser Query > ", end="")
             user_query = input()
 
             if user_query.lower() in ['exit', 'quit', 'выход']:
@@ -48,32 +49,32 @@ def main():
             
             if PRINT_SCORES and all_scores:
                 top_score = all_scores[0]['score']
-                print(Fore.LIGHTBLACK_EX + f"[DEBUG] Top-1 Similarity: {top_score:.4f}")
+                print(Fore.LIGHTBLACK_EX + f"     [DEBUG] Best Similarity Score: {top_score:.4f}")
 
             best_chunks = apply_threshold(all_scores, threshold=THRESHOLD, top_k=TOP_K)
 
             if best_chunks:
-                print(Fore.CYAN + f"🔎 Найдено {len(best_chunks)} релевантных отрывков.")
+                print(Fore.CYAN + f"     [INFO] Found {len(best_chunks)} relevant context chunks.")
             else:
-                print(Fore.RED + "⚠ В базе нет точных совпадений. Отвечаю общими знаниями...")
+                print(Fore.RED + "     [WARN] No relevant context found. Using general knowledge.")
 
             final_prompt = build_prompt(user_query, best_chunks)
             
-            print(Fore.YELLOW + "🤖 Phi-3 генерирует ответ...")
+            print(Fore.YELLOW + "     [..] Phi-3 is generating response...")
             answer = call_llm(final_prompt)
 
-            print(Fore.GREEN + "Ответ:")
+            print(Fore.GREEN + "\nResponse:")
             print(answer)
-            print("-" * 30)
+            print(Fore.CYAN + "-" * 42)
 
         except KeyboardInterrupt:
-            print("\nВыход...")
+            print("\nExiting...")
             break
         except Exception as e:
-            print(Fore.RED + f"❌ Произошла ошибка: {e}")
+            print(Fore.RED + f"\n[ERROR] {e}")
 
     close_db(conn, cursor)
-    print(Fore.MAGENTA + "Пока!")
+    print(Fore.MAGENTA + "\nGoodbye!")
 
 if __name__ == "__main__":
     main()
