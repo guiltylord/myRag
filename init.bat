@@ -8,6 +8,7 @@ set "C_RED=%ESC%[31m"
 set "C_GREEN=%ESC%[32m"
 set "C_YELLOW=%ESC%[33m"
 set "C_CYAN=%ESC%[36m"
+set "BRIGHT_YELLOW=%ESC%[33;1m"
 
 set "VENV_DIR=.venv"
 set "REQUIREMENTS_FILE=requirements.txt"
@@ -15,6 +16,16 @@ set "OLLAMA_MODEL=phi3:mini"
 set "MAIN_PACKAGE=langchain"
 
 cls
+echo %BRIGHT_YELLOW%                  oo dP   dP            dP                         dP %C_RESET%
+echo %BRIGHT_YELLOW%                     88   88            88                         88 %C_RESET%
+echo %BRIGHT_YELLOW%.d8888b. dP    dP dP 88 d8888P dP    dP 88 .d8888b. 88d888b. .d888b88 %C_RESET%
+echo %BRIGHT_YELLOW%88'  `88 88    88 88 88   88   88    88 88 88'  `88 88'  `88 88'  `88 %C_RESET%
+echo %BRIGHT_YELLOW%88.  .88 88.  .88 88 88   88   88.  .88 88 88.  .88 88       88.  .88 %C_RESET%
+echo %BRIGHT_YELLOW%`8888P88 `88888P' dP dP   dP   `8888P88 dP `88888P' dP       `88888P8 %C_RESET%
+echo %BRIGHT_YELLOW%     .88                            .88                               %C_RESET%
+echo %BRIGHT_YELLOW% d8888P                         d8888P                                %C_RESET%
+echo.
+
 echo %C_CYAN%==========================================%C_RESET%
 echo %C_CYAN%       RAG SYSTEM LAUNCHER (STABLE)       %C_RESET%
 echo %C_CYAN%==========================================%C_RESET%
